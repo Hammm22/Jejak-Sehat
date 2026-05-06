@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 const guestMenu = [
@@ -21,6 +21,8 @@ const authMenu = [
 ];
 
 export default function Navbar() {
+  const { data: session } = useSession();
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -109,14 +111,20 @@ export default function Navbar() {
             </button>
           ))}
 
-          {/* PROFILE ICON */}
           {isLoggedIn && (
-            <button
-              onClick={() => router.push("/profile")}
-              className="ml-2 text-white/70 hover:text-white transition"
-            >
-              <FaUserCircle size={22} />
-            </button>
+            <div className="flex flex-row gap-6">
+              <img
+                src={session?.user?.profil}
+                alt="profile"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              <button
+                onClick={() => signOut({ callbackUrl: "/login" })}
+                className="px-4 py-2 rounded-xl bg-red-500 text-black font-semibold hover:opacity-90 transition"
+              >
+                Logout
+              </button>
+            </div>
           )}
         </div>
       </motion.div>

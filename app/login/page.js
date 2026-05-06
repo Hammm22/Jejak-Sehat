@@ -2,37 +2,32 @@
 
 import BorderGlow from "../components/glowcard";
 import { useState } from "react";
-
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 export default function Login() {
   const [nik, setNik] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
     setLoading(true);
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nik,
-          password,
-        }),
+      const res = await signIn("credentials", {
+        nik,
+        password,
+        redirect: false,
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        // 🔥 simpan sementara (nanti bisa upgrade ke cookie)
-        localStorage.setItem("user", JSON.stringify(data));
-
-        window.location.href = "/dashboard";
+      if (!res.error) {
+        router.push("/dashboard");
+        router.refresh();
       } else {
-        alert(data.error || "Login gagal");
+        alert("NIK atau password salah");
       }
     } catch (err) {
       console.error(err);
@@ -41,7 +36,6 @@ export default function Login() {
       setLoading(false);
     }
   };
-
   return (
     <main className="min-h-screen flex items-center justify-center bg-[#09090B]">
       <div className="w-full max-w-md">
@@ -55,7 +49,6 @@ export default function Login() {
           </h2>
 
           <form onSubmit={handleLogin} className="flex flex-col gap-4">
-            
             {/* NIK */}
             <div className="flex flex-col gap-1 text-left">
               <label className="text-sm text-gray-400">NIK:</label>
@@ -96,7 +89,6 @@ export default function Login() {
             >
               {loading ? "Loading..." : "Login"}
             </button>
-
           </form>
         </BorderGlow>
       </div>

@@ -2,6 +2,7 @@
 
 import BorderGlow from "../components/glowcard";
 import { FaCamera } from "react-icons/fa";
+import toast from "react-hot-toast";
 import { useState, useRef } from "react";
 
 export default function Register() {
@@ -44,13 +45,13 @@ export default function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Register berhasil 🚀");
+        toast.success("Register berhasil 🚀");
         window.location.href = "/login";
       } else {
         alert(data.error);
       }
     } catch (err) {
-      alert("Terjadi error");
+      toast.error("Terjadi error");
       console.error(err);
     }
   };

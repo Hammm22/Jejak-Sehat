@@ -2,8 +2,11 @@
 import { useState } from "react";
 import BorderGlow from "../components/glowcard";
 import Layout from "../components/dashboardLayout";
+import { useRouter } from "next/navigation";
 
 export default function CatatanForm() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     nik: "",
     nama: "",
@@ -35,24 +38,15 @@ export default function CatatanForm() {
           waktu: form.waktu,
           lokasi: form.lokasi,
           suhu: Number(form.suhu),
-          // nik nanti bisa diambil dari user login (sementara hardcode dulu)
-          nik: 123,
         }),
       });
 
       if (res.ok) {
-        alert("Berhasil disimpan");
-        // optional: reset form
-        setForm({
-          nik: "",
-          nama: "",
-          tanggal: "",
-          waktu: "",
-          lokasi: "",
-          suhu: "",
-        });
+        router.push("/dashboard");
+        router.refresh();
       } else {
-        alert("Gagal simpan");
+        const err = await res.json().catch(() => ({}));
+        alert(err?.error || "Gagal simpan");
       }
     } catch (err) {
       console.error(err);

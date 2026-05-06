@@ -15,7 +15,7 @@ export default function WeeklyChart({ data }) {
   return (
     <Card colors={["#ffffff", "#18181B", "#4DD658"]} backgroundColor="#09090B">
       <div className="relative z-10 p-4">
-        <div className="h-[300px]">
+        <div className="h-75">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
               <CartesianGrid

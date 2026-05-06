@@ -7,6 +7,7 @@ import TextType from "./components/typewriter";
 import SplitText from "./components/fadeintest";
 import SpotlightCard from "./components/card";
 import Link from "next/link";
+
 import BorderGlow from "./components/glowcard";
 import {
   FaLocationDot,
@@ -76,34 +77,35 @@ export default function Home() {
       </section>
 
       <section
-  id="about"
-  className="relative min-h-screen flex items-center justify-center px-6"
->
-  <motion.div
-    ref={ref}
-    initial={{ opacity: 0, y: -80 }}
-    animate={isInView ? { opacity: 1, y: 0 } : {}}
-    transition={{ duration: 0.8, ease: "easeOut" }}
-    className="w-full max-w-5xl"
-  >
-    <BorderGlow className="flex flex-col items-center text-center gap-8 p-10 bg-[#18181B] rounded-3xl border border-white/10" colors={['#ffffff', '#18181B', '#4DD658']} backgroundColor="#09090B"
->
-      
-      <h2 className="text-white text-4xl md:text-5xl font-semibold">
-        ABOUT US
-      </h2>
+        id="about"
+        className="relative min-h-screen flex items-center justify-center px-6"
+      >
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: -80 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full max-w-5xl"
+        >
+          <BorderGlow
+            className="flex flex-col items-center text-center gap-8 p-10 bg-[#18181B] rounded-3xl border border-white/10"
+            colors={["#ffffff", "#18181B", "#4DD658"]}
+            backgroundColor="#09090B"
+          >
+            <h2 className="text-white text-4xl md:text-5xl font-semibold">
+              ABOUT US
+            </h2>
 
-      <SplitText
-        text="JejakSehat is a web-based application designed to help users track their daily journeys and monitor their health conditions in a simple and organized way. Through this platform, users can easily record important information such as location, time, and body temperature, allowing them to keep a clear record of their daily activities."
-        splitType="words"
-        delay={40}
-        duration={1.5}
-        className="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed"
-      />
-
-    </BorderGlow>
-  </motion.div>
-</section>
+            <SplitText
+              text="JejakSehat is a web-based application designed to help users track their daily journeys and monitor their health conditions in a simple and organized way. Through this platform, users can easily record important information such as location, time, and body temperature, allowing them to keep a clear record of their daily activities."
+              splitType="words"
+              delay={40}
+              duration={1.5}
+              className="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed"
+            />
+          </BorderGlow>
+        </motion.div>
+      </section>
 
       <section
         id="features"
@@ -272,7 +274,8 @@ export default function Home() {
 
         {/* bottom bar */}
         <div className="flex flex-col border-t border-white/10 text-center py-4 text-sm text-gray-500">
-          © {new Date().getFullYear()} Jejak Sehat. All rights reserved.<br></br>
+          © {new Date().getFullYear()} Jejak Sehat. All rights reserved.
+          <br></br>
           Made By Hamm22 A.K.A Ilham Dwi Arsandy
         </div>
       </footer>
